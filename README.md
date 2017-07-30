@@ -4,6 +4,8 @@
 
 - Directed Graph Implemented in c++
 - Templated class to accept int and strings
+- Each vertex is a node
+- Nodes have linked lists of vertexes the given vertex points to
 ## Install cxxtest
 - go to https://sourceforge.net/projects/cxxtest/files/cxxtest/
 - install folder in directory with code
