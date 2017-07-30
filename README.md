@@ -1,5 +1,5 @@
 
-# Directed-Graph  [![Build Status](https://travis-ci.org/Dragomir2020/Hash-Table.svg?branch=master)](https://travis-ci.org/Dragomir2020/Hash-Table)    [![Coverage Status](https://coveralls.io/repos/github/Dragomir2020/Hash-Table/badge.svg?branch=master)](https://coveralls.io/github/Dragomir2020/Hash-Table?branch=master)
+# Directed-Graph  [![Build Status](https://travis-ci.org/Dragomir2020/Directed-Graph.svg?branch=master)](https://travis-ci.org/Dragomir2020/Directed-Graph)    [![Coverage Status](https://coveralls.io/repos/github/Dragomir2020/Hash-Table/badge.svg?branch=master)](https://coveralls.io/github/Dragomir2020/Hash-Table?branch=master)
 
 
 - Directed Graph Implemented in c++
