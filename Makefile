@@ -46,7 +46,7 @@ test: testrunner
 	./testrunner
 
 testrunner: testrunner.cpp 
-	g++ --coverage -O0 -I. -std=c++11 -ggdb -I$(CXXLOCATION)/ -o testrunner testrunner.cpp
+	g++ -v --coverage -O0 -I. -std=c++11 -ggdb -I$(CXXLOCATION)/ -o testrunner testrunner.cpp
 	
 
 testrunner.cpp: $(HEADERS) $(TESTSOURCES) 
