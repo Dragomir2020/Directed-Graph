@@ -25,5 +25,5 @@
 - must do this to recompile code using make test
 
 # TODO
-- Implement member functions
+- Implement member functions in DirectedGraph.cpp
 - Write more tests in DirectedGraph_test.h
