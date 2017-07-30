@@ -26,6 +26,24 @@
 - make clean
 - must do this to recompile code using make test
 
+# Using Directed-Graph
+## Member functions
+- DirectedGraph(unsigned int maxVertices);
+- ~DirectedGraph();
+- DirectedGraph(const DirectedGraph& other);
+- bool isEmpty() const;
+- unsigned int numberVertices() const;
+- unsigned int maxVertices() const;
+- unsigned int numberEdges() const;
+- bool isFull() const;
+- bool edgeExists(T vertOne, T vertTwo) const;
+- bool completeGraph() const; //All vertices must have N-1 edges
+- void insertVertex(T thing);
+- void insertEdge(T vertOne, T vertTwo);
+- void removeEdge(T vertOne, T vertTwo); //Checks whether edge exists first
+- void removeVertex(T thing);
+- void clearTable();
+
 # TODO
 - Implement member functions in DirectedGraph.cpp
 - Write more tests in DirectedGraph_test.h
