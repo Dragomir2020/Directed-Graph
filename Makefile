@@ -1,6 +1,6 @@
 CC=g++
-CFLAGS=-c -std=c++11 -Wall -ggdb -I.
-LDFLAGS=-std=c++11
+CFLAGS=-c -std=c++11 -Wall -ggdb -I. --coverage -O0 -v
+LDFLAGS=-std=c++11 --coverage
 SOURCES=graphsandbox.cpp 
 EXECUTABLE=graph
 TESTS=DirectedGraph_test.h
@@ -46,7 +46,7 @@ test: testrunner
 	./testrunner
 
 testrunner: testrunner.cpp 
-	g++ -I. -std=c++11 -ggdb -I$(CXXLOCATION)/ -o testrunner testrunner.cpp
+	g++ --coverage -O0 -I. -std=c++11 -ggdb -I$(CXXLOCATION)/ -o testrunner testrunner.cpp
 	
 
 testrunner.cpp: $(HEADERS) $(TESTSOURCES) 
