@@ -76,14 +76,15 @@ bool DirectedGraph<T>::isEmpty() const{
 	return (total_edges == 0) && (number_vertices == 0);
 }
 
-//Class needs to resolve problems with accessing vertex when it has not been set, how to manage this with templated class
+//Class needs to resolve problems with accessing vertex when it has not been set.
 template<class T>
 unsigned int DirectedGraph<T>::vertexEdges(T vertex) const{
+	/*
 	for(int i=0;i<max_vertices;i++){
 		if(table[i].vertex == vertex && table[i].data != NULL){
 			return (table[i].data).getCurrentSize();
 		}
-	}
+	}*/
 	return 0;
 	
 }
@@ -151,7 +152,10 @@ void DirectedGraph<T>::insertEdge(T vertOne, T vertTwo){
     while(table[count].state != EMPTY){
 		if(table[count].vertex == vertOne){
 			//Add vertex to linked bag
-			(table[count].data)->add(vertTwo);
+			//REMOVE THIS AFTER EVERYTHING IS HANDLED PROPERLY
+			if(table[count].data != NULL){
+			    (table[count].data)->add(vertTwo);
+		    }
 			//Must change number of edges to be data type of Vertex
 			table[count].number_edges += 1;
 			total_edges++;

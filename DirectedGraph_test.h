@@ -88,6 +88,7 @@ public:
 	  //TS_ASSERT_EQUALS(a.vertexEdges("A"), 0);
 	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
   }
+  
   void test10(){
 	  DirectedGraph<string> a(2);
 	  a.insertVertex("A");
@@ -96,16 +97,6 @@ public:
 	  //TS_ASSERT_EQUALS(a.vertexEdges("A"), 0);
 	  //TS_ASSERT_EQUALS(a.vertexEdges("A"), 1);
 	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
-  }
-  
-};
-
-class DirectedGraphRemove : public CxxTest::TestSuite {
-public:
-  
-  void Remove1() {
-    DirectedGraph<string> a(10);
-    TS_ASSERT_EQUALS(a.numberVertices(), 2);
   }
   
 };
