@@ -16,9 +16,9 @@ DirectedGraph<T>::DirectedGraph(unsigned int maxVertices){
 	for(int i = 0; i < max_vertices; i++){
 		table[i].data = NULL;
 		table[i].state = EMPTY;
+		table[i].number_edges = 0;
 	}
 	// Initalize size to zero
-	number_edges = 0;
 	number_vertices = 0;
 }
 //Deconstructor
@@ -34,7 +34,7 @@ DirectedGraph<T>::~DirectedGraph() {
 template<class T>
 DirectedGraph<T>::DirectedGraph(const DirectedGraph& other){
 	//Not correct just initalizing values to NULL
-	number_edges = other.number_edges;
+	total_edges = other.total_edges;
 	number_vertices = other.number_vertices;
 	max_vertices = other.max_vertices;
 	table = new item_t<T>[max_vertices];
@@ -43,6 +43,7 @@ DirectedGraph<T>::DirectedGraph(const DirectedGraph& other){
 	   if((other.table[i]).state == EMPTY){
 		   table[i].data = NULL;
 		   table[i].state = EMPTY;
+		   table[i].number_edges = 0;
 	   }else if (other.table[i].state == OCCUPIED ){
 		   table[i].vertex = (other.table[i]).vertex;
 		   //Convert linked bag to vector
@@ -53,7 +54,8 @@ DirectedGraph<T>::DirectedGraph(const DirectedGraph& other){
 			   //Push back new elements
    		       A->push_back(bagContents[j]);
 			   //Add to the size
-			   number_edges++;
+			   table[i].number_edges += 1;
+			   total_edges++;
    		   }
 		   (table[i].data) = A;
 		   (table[i].state) = OCCUPIED;
@@ -63,6 +65,7 @@ DirectedGraph<T>::DirectedGraph(const DirectedGraph& other){
 		   LinkedBag<T>* A = new LinkedBag<T>();
 		   (table[i].data) = A;
 		   (table[i].state) = REMOVED;
+		   table[i].number_edges = 0;
 	   }
 	}
 }
@@ -70,7 +73,19 @@ DirectedGraph<T>::DirectedGraph(const DirectedGraph& other){
 // returns true if no vertices or edges
 template<class T>
 bool DirectedGraph<T>::isEmpty() const{
-	return (number_edges == 0) && (number_vertices == 0);
+	return (total_edges == 0) && (number_vertices == 0);
+}
+
+//Class needs to resolve problems with accessing vertex when it has not been set, how to manage this with templated class
+template<class T>
+unsigned int DirectedGraph<T>::vertexEdges(T vertex) const{
+	for(int i=0;i<max_vertices;i++){
+		if(table[i].vertex == vertex && table[i].data != NULL){
+			return (table[count].data).getCurrentSize();
+		}
+	}
+	return 0;
+	
 }
 
 // returns number of vertices
@@ -87,8 +102,8 @@ unsigned int DirectedGraph<T>::maxVertices() const{
 
 // returns number of edges
 template<class T>
-unsigned int DirectedGraph<T>::numberEdges() const{
-	return number_edges;
+unsigned int DirectedGraph<T>::totalEdges() const{
+	return total_edges;
 }
 
 //Returns true if reached max vertices
@@ -132,6 +147,17 @@ void DirectedGraph<T>::insertVertex(T thing){
 template<class T>
 void DirectedGraph<T>::insertEdge(T vertOne, T vertTwo){
 	//Insert vertex if it doesnt already exist
+	int count = 0;
+    while(table[count].state != EMPTY){
+		if(table[count].vertex == vertOne){
+			//Add vertex to linked bag
+			(table[count].data)->add(vertTwo);
+			//Must change number of edges to be data type of Vertex
+			table[count].number_edges += 1;
+			total_edges++;
+		}
+	    count++;
+    }
 }
 
 //Remove Edge

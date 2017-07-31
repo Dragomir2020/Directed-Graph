@@ -14,6 +14,7 @@ enum node_state {EMPTY, OCCUPIED, REMOVED};
 template <class T>
 struct item_t {
 	T vertex;
+	unsigned int number_edges;
 	LinkedBag<T> *data;
 	node_state state;
 };
@@ -38,7 +39,9 @@ public:
 	
 	unsigned int maxVertices() const;
 	
-	unsigned int numberEdges() const;
+	unsigned int totalEdges() const;
+	
+	unsigned int vertexEdges(T vertex) const;
 
 	bool isFull() const;
 	
@@ -58,8 +61,8 @@ public:
 	
 //Private data types and member functions
 private:
-	unsigned int number_edges;
 	unsigned int number_vertices;
+	unsigned int total_edges;
 	unsigned int max_vertices;
 	item_t<T>* table;
 };

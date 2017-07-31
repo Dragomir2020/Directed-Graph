@@ -19,33 +19,83 @@ using namespace std;
 // The current Makefile in this directory assumes cxxtest is a folder one
 // level down.
 
-class DirectedGraphInsertSizeCap : public CxxTest::TestSuite {
+class DirectedGraphtest : public CxxTest::TestSuite {
 public:
 
-  void testEmpty() {
+  void test0() {
     DirectedGraph<string> a(2);
     TS_ASSERT_EQUALS(a.maxVertices(), 2);
   }
   
-  void insertOne() {
+  void test1() {
     DirectedGraph<string> a(2);
 	a.insertVertex("A");
     TS_ASSERT_EQUALS(a.numberVertices(), 1);
   }
   
-  void insertTwo() {
+  void test2() {
     DirectedGraph<string> a(2);
 	a.insertVertex("A");
 	a.insertVertex("B");
     TS_ASSERT_EQUALS(a.numberVertices(), 2);
   }
   
-  void insertThree() {
+  void test3() {
     DirectedGraph<string> a(2);
 	a.insertVertex("A");
 	a.insertVertex("B");
 	a.insertVertex("C");
     TS_ASSERT_EQUALS(a.numberVertices(), 2);
+  }
+  
+  void test4(){
+	  DirectedGraph<int> a(2);
+	  TS_ASSERT_EQUALS(a.numberVertices(), 0);
+	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
+  }
+  
+  void test5(){
+	  DirectedGraph<int> a(2);
+	  a.insertVertex(1);
+	  TS_ASSERT_EQUALS(a.numberVertices(), 1);
+	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
+  }
+  
+  void test6(){
+	  DirectedGraph<int> a(2);
+	  a.insertVertex(1);
+	  a.insertVertex(2);
+	  a.insertVertex(3);
+	  TS_ASSERT_EQUALS(a.numberVertices(), 2);
+	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
+  }
+  void test7(){
+	  DirectedGraph<int> a(2);
+	  a.insertVertex(1);
+	  a.insertVertex(1);
+	  TS_ASSERT_EQUALS(a.numberVertices(), 1);
+	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
+  }
+  //TEST insertEdge
+  void test8(){
+	  DirectedGraph<string> a(2);
+	  a.insertEdge("A","B");
+	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
+  }
+  void test9(){
+	  DirectedGraph<string> a(2);
+	  a.insertEdge("A","B");
+	  //TS_ASSERT_EQUALS(a.vertexEdges("A"), 0);
+	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
+  }
+  void test10(){
+	  DirectedGraph<string> a(2);
+	  a.insertVertex("A");
+	  a.insertVertex("B");
+	  a.insertEdge("A","B");
+	  //TS_ASSERT_EQUALS(a.vertexEdges("A"), 0);
+	  //TS_ASSERT_EQUALS(a.vertexEdges("A"), 1);
+	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
   }
   
 };
@@ -53,11 +103,8 @@ public:
 class DirectedGraphRemove : public CxxTest::TestSuite {
 public:
   
-  void insertThree() {
-    DirectedGraph<string> a(2);
-	a.insertVertex("A");
-	a.insertVertex("B");
-	a.insertVertex("C");
+  void Remove1() {
+    DirectedGraph<string> a(10);
     TS_ASSERT_EQUALS(a.numberVertices(), 2);
   }
   
