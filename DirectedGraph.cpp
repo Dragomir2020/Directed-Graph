@@ -81,7 +81,7 @@ template<class T>
 unsigned int DirectedGraph<T>::vertexEdges(T vertex) const{
 	for(int i=0;i<max_vertices;i++){
 		if(table[i].vertex == vertex && table[i].data != NULL){
-			return (table[count].data).getCurrentSize();
+			return (table[i].data).getCurrentSize();
 		}
 	}
 	return 0;
