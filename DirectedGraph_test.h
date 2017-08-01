@@ -239,6 +239,14 @@ public:
 		  TS_ASSERT_EQUALS(b.totalEdges(), 0);
 		  TS_ASSERT_EQUALS(b.maxVertices(), 2);
 	}
+	void testCopy2() {
+		  DirectedGraph<string> a(2);
+		  a.insertVertex("D");
+		  a.insertVertex("E");
+		  DirectedGraph<string> b(a);
+	      TS_ASSERT_EQUALS(b.numberVertices(), 2);
+	      TS_ASSERT_EQUALS(b.totalEdges(), 0);
+	}
 	
 };
 
