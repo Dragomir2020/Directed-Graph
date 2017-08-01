@@ -43,7 +43,7 @@
 - void insertEdge(T vertOne, T vertTwo); //Inserts from vertex 1 to 2
 - void removeEdge(T vertOne, T vertTwo); //Checks whether edge exists between vertex 1 and 2
 - void removeVertex(T thing); //Removes vertex and any given edges
-- void clearTable(); //Clears all vertices
+- void clearGraph(); //Clears all vertices
 
 # TODO
 - Implement member functions in DirectedGraph.cpp
