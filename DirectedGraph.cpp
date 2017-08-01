@@ -385,19 +385,5 @@ void HashTable<T>::remove(T thing){
 	}
 
 }
-//Clear Hash Table
-template<class T>
-void HashTable<T>::clear_table(){
-	for(int i=0; i<the_capacity; i++){
-		if(table[i].state == OCCUPIED || table[i].state == REMOVED){
-			//cout << table[i].data << endl;
-			(table[i].data)->clear();
-			delete table[i].data;
-			table[i].data = NULL;
-			table[i].state = EMPTY;
-			//item_t *entry = htable
-		}
-	}
-	the_size = 0;
-}
+
 */
