@@ -232,7 +232,7 @@ void DirectedGraph<T>::insertEdge(T vertOne, T vertTwo){
 }
 
 //Remove Edge
-//STILL NEEDS IMPLEMENTED
+
 template<class T>
 void DirectedGraph<T>::removeEdge(T vertOne, T vertTwo){
 	//Checks whether edge exists first
@@ -253,10 +253,35 @@ void DirectedGraph<T>::removeEdge(T vertOne, T vertTwo){
 
 //Remove vertex
 //STILL NEEDS IMPLEMENTED
+//THIS WILL BREAK CODE WHEN DELETING VERTICIES BC OF BREAK STATEMENTS
 template<class T>
 void DirectedGraph<T>::removeVertex(T thing){
 	//Checks whether vertex exists then removes it
-	
+	int index = vertexExists(thing);
+	if(index != -1){
+		//First delete vertex
+    	(table[index].data)->clear();
+		delete table[index].data;
+		table[index].data = NULL;
+		table[index].state = EMPTY;
+		table[index].number_edges = 0;
+		number_vertices--;
+		//next delete all vertcies pointing to vertex
+		for(int i=0; i < max_vertices; i++){
+			if((table[i].data)->contains(thing)){
+				(table[i].data)->remove(thing);
+				table[i].number_edges--;
+				if(table[i].number_edges == 0){
+					delete table[index].data;
+					table[index].data = NULL;
+					table[index].state = REMOVED;
+				}
+			}
+		}
+			
+	} else{
+		//Vertex DNE
+	}
 	
 }
 
