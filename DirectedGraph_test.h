@@ -250,5 +250,52 @@ public:
 	
 };
 
+class DirectedGraphRemoveEdge : public CxxTest::TestSuite {
+public:
+	
+	void testRemoveEdge1() {
+	      DirectedGraph<string> a(2);
+	      a.insertVertex("D");
+	      a.insertVertex("E");
+	      a.insertEdge("D","E");
+	      a.insertEdge("E","D");
+	      a.removeEdge("E","D");
+	      TS_ASSERT_EQUALS(a.numberVertices(), 2);
+	      TS_ASSERT_EQUALS(a.totalEdges(), 1);
+	      TS_ASSERT_EQUALS(a.vertexEdges("D"), 1);
+		  TS_ASSERT_EQUALS(a.vertexEdges("E"), 0);
+	}
+	void testRemoveEdge2() {
+	      DirectedGraph<string> a(2);
+	      a.insertVertex("D");
+	      a.insertVertex("E");
+	      a.insertEdge("D","E");
+	      a.insertEdge("E","D");
+	      a.removeEdge("E","D");
+		  a.insertEdge("E","D");
+	      TS_ASSERT_EQUALS(a.numberVertices(), 2);
+	      TS_ASSERT_EQUALS(a.totalEdges(), 2);
+	      TS_ASSERT_EQUALS(a.vertexEdges("D"), 1);
+		  TS_ASSERT_EQUALS(a.vertexEdges("E"), 1);
+	}
+	void testRemoveEdge3() {
+	      DirectedGraph<int> a(50);
+		  for(int i=0; i<40; i++){
+		  	a.insertVertex(i);
+			a.insertVertex(i+1);
+			a.insertEdge(i,i+1);
+		  }
+		  for(int i=0; i<40; i++){
+		  	a.removeEdge(i,i+1);
+		  }
+	      TS_ASSERT_EQUALS(a.numberVertices(), 41);
+	      TS_ASSERT_EQUALS(a.totalEdges(), 0);
+	      for(int i=0; i<40; i++){
+		  	TS_ASSERT_EQUALS(a.vertexEdges(i), 0);
+		  }
+	}
+	
+};
+
 
 #endif

@@ -1,6 +1,6 @@
-////////////////////////////////
+/////////////////////////////
 //FILE NAME: DirectedGraph.cpp//
-///////////////////////////////
+/////////////////////////////
 
 ////////////////
 //Contributers//
@@ -236,6 +236,19 @@ void DirectedGraph<T>::insertEdge(T vertOne, T vertTwo){
 template<class T>
 void DirectedGraph<T>::removeEdge(T vertOne, T vertTwo){
 	//Checks whether edge exists first
+	if(edgeExists(vertOne, vertTwo)){
+		int index = vertexExists(vertOne);
+		table[index].data->remove(vertTwo);
+		total_edges--;
+		table[index].number_edges += -1;
+		//Delete linked bag if empty
+		if(table[index].number_edges == 0){
+	    	(table[index].data)->clear();
+			delete table[index].data;
+			table[index].data = NULL;
+			table[index].state = REMOVED;
+		}
+	}
 }
 
 //Remove vertex
@@ -243,6 +256,8 @@ void DirectedGraph<T>::removeEdge(T vertOne, T vertTwo){
 template<class T>
 void DirectedGraph<T>::removeVertex(T thing){
 	//Checks whether vertex exists then removes it
+	
+	
 }
 
 //Returns location of Vertex
@@ -307,83 +322,4 @@ DirectedGraph<T> DirectedGraph<T>::operator= (const DirectedGraph& other){
 	   return *this;
     }
 }
-//Find
-template<class T>
-bool HashTable<T>::find(T thing) const{
-	unsigned int hash_value = ((*hashfn)(thing))%the_capacity;
-	if(table[hash_value].state == OCCUPIED){
-	    // Check whether value exists in linked bag at index of hash_value
-	    return (table[hash_value].data)->contains(thing);
-	} else{
-		return false;
-	}
-}
-//Size
-template<class T>
-unsigned int HashTable<T>::size() const{
-	//Find size of hash table
-	return the_size;
-}
-//Capacity
-template<class T>
-unsigned int HashTable<T>::capacity() const{
-	//Return Hash table capacity
-	return the_capacity;
-}
-//Is the table full
-template<class T>
-bool HashTable<T>::isFull() const{
-	//Check whether table is full
-	for(int i = 0; i < the_capacity; i++){
-	      if(table[i].state == EMPTY || table[i].state == REMOVED){
-	      	return false;
-	      }	
-	}
-	return true;
-}
-//Insert new element into table
-template<class T>
-void HashTable<T>::insert(T thing){
-    //If found check next parameter
-	if(!find(thing)){
-		//Use hash function to get index
-		unsigned int hash_value = ((*hashfn)(thing))%the_capacity;
-		//If Empty Create linked bag and push back element
-		if(table[hash_value].state == EMPTY){
-		     // Add value to linked bag
-			//Loop through items in linked bag
-			LinkedBag<T>* A = new LinkedBag<T>();
-			A->push_back(thing);
-			(table[hash_value].data) = A;
-			table[hash_value].state = OCCUPIED;
-			the_size++;
-	    //If occupied insert new element
-		}else if(table[hash_value].state == OCCUPIED || table[hash_value].state == REMOVED){
-			(table[hash_value].data)->push_back(thing);
-			table[hash_value].state = OCCUPIED;
-			the_size++;
-		}
-	//Throw logic error if table is full
-	} else if(isFull()){
-		throw logic_error("Table is full");
-	}
-	
-}
-
-
-template<class T>
-void HashTable<T>::remove(T thing){
-	if(!find(thing)){
-		//DNE
-	} else if(the_size != 0){
-		unsigned int hash_value = ((*hashfn)(thing))%the_capacity;
-		table[hash_value].data->remove(thing);
-		the_size--;
-		if(table[hash_value].data->getCurrentSize() == 0){
-			table[hash_value].state = REMOVED;
-		}
-	}
-
-}
-
 */
