@@ -168,10 +168,9 @@ bool DirectedGraph<T>::completeGraph() const{
 	//All vertices must have N-1 edges
 	bool is_full = 1;
 	for(int i=0; i < max_vertices; i++){
-		if(table[i].state == EMPTY){
-			break;
+		if(table[i].state != EMPTY){
+			is_full = is_full && (table[i].number_edges == (number_vertices-1));
 		}
-		is_full = is_full && (table[i].number_edges == (number_vertices-1));
 	}
 	return is_full;
 }
@@ -260,8 +259,9 @@ void DirectedGraph<T>::removeVertex(T thing){
 	int index = vertexExists(thing);
 	if(index != -1){
 		//First delete vertex
+		/*
     	(table[index].data)->clear();
-		delete table[index].data;
+		delete table[index].data;*/
 		table[index].data = NULL;
 		table[index].state = EMPTY;
 		table[index].number_edges = 0;

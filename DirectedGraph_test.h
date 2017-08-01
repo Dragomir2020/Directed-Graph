@@ -297,5 +297,32 @@ public:
 	
 };
 
+class DirectedGraphRemoveNode : public CxxTest::TestSuite {
+public:
+	
+	void testRemoveNode0() {
+		DirectedGraph<string> a(5);
+		a.insertVertex("A");
+		a.insertVertex("B");
+		a.insertVertex("C");
+		a.insertVertex("D");
+		a.insertEdge("A","B");
+		a.insertEdge("A","D");
+		a.insertEdge("C","A");
+		a.insertEdge("C","B");
+		a.insertEdge("B","D");
+		//Now remove vertex
+		//a.removeVertex("D");
+		/*
+        TS_ASSERT_EQUALS(a.numberVertices(), 3);
+        TS_ASSERT_EQUALS(a.totalEdges(), 3);
+        TS_ASSERT_EQUALS(a.vertexEdges("A"), 1);
+	    TS_ASSERT_EQUALS(a.vertexEdges("C"), 2);
+		TS_ASSERT_EQUALS(a.vertexEdges("B"), 0);*/
+	}
+	
+	
+};
+
 
 #endif
