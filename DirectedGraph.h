@@ -42,6 +42,8 @@ public:
 	unsigned int totalEdges() const;
 	
 	unsigned int vertexEdges(T vertex) const;
+	
+	int vertexExists(T vertex) const; //Return -1 if DNE
 
 	bool isFull() const;
 	
@@ -57,7 +59,7 @@ public:
 	
 	void removeVertex(T thing);
 
-	void clearTable();
+	void clearGraph();
 	
 //Private data types and member functions
 private:
