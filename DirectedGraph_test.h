@@ -68,6 +68,29 @@ public:
 	  TS_ASSERT_EQUALS(a.numberVertices(), 2);
 	  TS_ASSERT_EQUALS(a.maxVertices(), 2);
   }
+  void test8() {
+	  DirectedGraph<float> a(2);
+	  a.insertVertex(2.01);
+	  a.insertVertex(-20.3);
+	  TS_ASSERT_EQUALS(a.numberVertices(), 2);
+  }
+  void test9() {
+	  DirectedGraph<double> a(2);
+	  a.insertVertex(2.01);
+	  a.insertVertex(-20.3);
+	  TS_ASSERT_EQUALS(a.numberVertices(), 2);
+  }
+  //Really test verticies being inserted
+  void test10() {
+	  DirectedGraph<int> a(10000);
+	  for(int i=0; i<10000;i++){
+	      a.insertVertex(i);
+	  }
+	  TS_ASSERT_THROWS_ANYTHING(a.insertVertex(10001));
+	  TS_ASSERT_EQUALS(a.numberVertices(), 10000);
+	  TS_ASSERT_THROWS_ANYTHING(a.insertVertex(1));
+	  TS_ASSERT_EQUALS(a.numberVertices(), 10000);
+  }
   
 };
 
@@ -130,6 +153,41 @@ public:
   	  TS_ASSERT_EQUALS(a.totalEdges(), 3);
   	  TS_ASSERT_EQUALS(a.vertexEdges("A"), 2);
     }
+	//Really Test Inserting Edges
+	void testInsertEdge7() {
+		DirectedGraph<int> a(10000);
+		a.insertVertex(0);
+		for(int i=0; i<9999;i++){
+			a.insertVertex(i+1);
+			a.insertEdge(i,i+1);
+		}
+    	  TS_ASSERT_EQUALS(a.totalEdges(), 9999);
+    	  TS_ASSERT_EQUALS(a.vertexEdges(1), 1);
+	}
+	//Insert edge to same node. Important with web crawler
+	void testInsertEdge8() {
+		DirectedGraph<string> a(2);
+		a.insertVertex("A");
+		a.insertVertex("B");
+		a.insertEdge("A","A");
+		a.insertEdge("B","B");
+  	    TS_ASSERT_EQUALS(a.totalEdges(), 2);
+  	    TS_ASSERT_EQUALS(a.vertexEdges("A"), 1);
+	}
+	//Create a full graph
+	void testInsertEdge9() {
+		DirectedGraph<int> a(100);
+		for(int i=0;i<100;i++){
+			a.insertVertex(i);
+		}
+		for(int i=0;i<100;i++){
+			for(int j=0;j<100;j++){
+				a.insertEdge(i,j);
+			}
+		}
+		TS_ASSERT_EQUALS(a.isFull(), 1);
+	}
+	
 	
 };
 
@@ -142,6 +200,13 @@ public:
   	  a.insertVertex("B");
   	  a.insertEdge("A","B");
 	  TS_ASSERT_EQUALS(a.edgeExists("A","B"), 1);
+	}
+	void testEdgeExists1() {
+		DirectedGraph<int> a(2);
+		a.insertVertex(1);
+		a.insertEdge(1,1);
+	    TS_ASSERT_EQUALS(a.totalEdges(), 1);
+	    TS_ASSERT_EQUALS(a.vertexEdges(1), 1);
 	}
 	
 };
@@ -351,7 +416,6 @@ public:
         TS_ASSERT_THROWS_ANYTHING(a.vertexEdges("C"));
 	    TS_ASSERT_THROWS_ANYTHING(a.vertexEdges("B"));
 	}
-	
 };
 
 class DirectedGraphAssignment: public CxxTest::TestSuite {
@@ -378,7 +442,6 @@ public:
 			b.insertVertex(i+1);
 			b.insertEdge(i,i+1);
 		}
-		//Copy constructor
 		a = b;
         TS_ASSERT_EQUALS(a.numberVertices(), 100);
         TS_ASSERT_EQUALS(a.totalEdges(),99);
