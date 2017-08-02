@@ -22,6 +22,10 @@ using namespace std;
 class DirectedGraphtest : public CxxTest::TestSuite {
 public:
 
+  void test01() {
+    DirectedGraph<string> a(2);
+    TS_ASSERT_EQUALS(a.isEmpty(), 1);
+  }
   void test0() {
     DirectedGraph<string> a(2);
     TS_ASSERT_EQUALS(a.maxVertices(), 2);
@@ -208,6 +212,18 @@ public:
 	    TS_ASSERT_EQUALS(a.totalEdges(), 1);
 	    TS_ASSERT_EQUALS(a.vertexEdges(1), 1);
 	}
+	void testEdgeExists2() {
+		DirectedGraph<double> a(4);
+		a.insertVertex(2.5341);
+		a.insertVertex(-63.2342);
+		a.insertEdge(2.5341,-63.2342);
+	    TS_ASSERT_EQUALS(a.totalEdges(), 1);
+	    TS_ASSERT_EQUALS(a.edgeExists(2.5341,-63.2342), 1);
+	}
+	void testEdgeExists3() {
+		DirectedGraph<string> a(2);
+		TS_ASSERT_EQUALS(a.edgeExists("A","B"),0);
+	}
 	
 };
 
@@ -254,6 +270,18 @@ public:
 	  a.insertEdge("B","C");
 	  a.insertEdge("C","A");
 	  TS_ASSERT_EQUALS(a.completeGraph(), 0);
+	}
+	void testComplete4() {
+		DirectedGraph<int> a(2);
+		a.insertVertex(1);
+		a.insertVertex(2);
+		a.insertEdge(1,2);
+		TS_ASSERT_EQUALS(a.completeGraph(), 0);
+		a.insertEdge(2,1);
+		TS_ASSERT_EQUALS(a.completeGraph(), 1);
+		a.insertEdge(2,2);
+		a.insertEdge(1,1);
+		TS_ASSERT_EQUALS(a.completeGraph(), 0);
 	}
 };
 
