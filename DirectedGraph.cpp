@@ -11,6 +11,7 @@
 // NAME                   DATE           CHANGE
 // Dillon Dragomir        08-28-2017     Initial Commit
 // Dillon Dragomir        09-01-2017     Implement more member functions and unit tests
+// Dillon Dragomir        09-01-2017     Add copy constructor and assignment operator
 
 ///////////////////////////////////////////////
 
@@ -92,6 +93,55 @@ DirectedGraph<T>::DirectedGraph(const DirectedGraph& other){
 		   table[i].number_edges = 0;
 	   }
 	}
+}
+
+//Assignment Operator
+template<class T>
+DirectedGraph<T> DirectedGraph<T>::operator= (const DirectedGraph& other){ 
+	table = new item_t<T>[other.max_vertices];
+	if(table == other.table){
+		return *this;
+	} else {
+       // Assignment Operator
+	   clearGraph();
+       total_edges = 0;//other.total_edges;//other.total_edges;
+   	   number_vertices = 0;//other.number_vertices;//other.number_vertices;
+   	   max_vertices = other.max_vertices;
+	   //Set copy over all elements
+	   for(int i = 0; i < max_vertices; i++){
+	       if((other.table[i]).state == EMPTY){
+			   table[i].data = NULL;
+			   table[i].state = EMPTY;
+			   table[i].number_edges = 0;
+		   }else if((other.table[i]).state == REMOVED){
+			   number_vertices++;
+			   table[i].vertex = (other.table[i]).vertex;
+			   //Create new linked bag to copy to
+			   LinkedBag<T>* A = new LinkedBag<T>();
+			   (table[i].data) = A;
+			   (table[i].state) = REMOVED;
+			   table[i].number_edges = 0;
+		   }else if((other.table[i]).state == OCCUPIED){
+			   number_vertices++;
+			   table[i].number_edges = 0;
+			   table[i].vertex = (other.table[i]).vertex;
+			   //Convert linked bag to vector
+	   		   vector<T> bagContents  = ((other.table[i]).data)->toVector();
+			   //Create new linked bag to copy to
+			   LinkedBag<T>* A = new LinkedBag<T>();
+	   		   for(int j = 0; j < bagContents.size(); j++){
+				   //Push back new elements
+	   		       A->push_back(bagContents[j]);
+				   //Add to the size
+				   table[i].number_edges += 1;
+				   total_edges++;
+	   		   }
+			   (table[i].data) = A;
+			   (table[i].state) = OCCUPIED;
+	       }
+	   }
+	   return *this;
+    }
 }
 
 // returns true if no vertices or edges
@@ -288,6 +338,7 @@ void DirectedGraph<T>::removeVertex(T thing){
 		}
 	} else{
 		//Vertex DNE
+		throw invalid_argument( "EXCEPTION: Vertex DNE or edge alread exists" );
 	}
 	
 }
@@ -296,12 +347,11 @@ void DirectedGraph<T>::removeVertex(T thing){
 template<class T>
 int DirectedGraph<T>::vertexExists(T vertex) const{
 	for(int i=0; i < max_vertices; i++){
-		if(table[i].state == EMPTY){
-			//Break if all vertices are looped through
-			return -1;
-		} else if(table[i].vertex == vertex){
-			return i;
-		}
+		if(table[i].state != EMPTY){
+		    if(table[i].vertex == vertex){
+			    return i;
+		    }
+	    }
 	}
 	return -1;
 }
@@ -328,30 +378,3 @@ void DirectedGraph<T>::clearGraph(){
 }
 
 
-//Assignment Operator
-/*
-template<class T>
-DirectedGraph<T> DirectedGraph<T>::operator= (const DirectedGraph& other){ 
-	if(table == other.table){
-		return *this;
-	} else {
-       // Assignment Operator
-	   clear_table();
-       hashfn = other.hashfn;
-	   the_capacity = other.the_capacity;
-	   //Set copy over all elements
-	   for(int i = 0; i < the_capacity; i++){
-	       if((other.table[i]).state == EMPTY || (other.table[i]).state == REMOVED){
-			//Do Nothing
-		   }else if((other.table[i]).state == OCCUPIED){
-		      vector<T> bagContents  = ((other.table[i]).data)->toVector();
-		      for(int i = 0; i < bagContents.size(); i++){
-			      //cout << bagContents[i] << endl;
-		          insert(bagContents[i]);
-		      }
-	       }
-	   }
-	   return *this;
-    }
-}
-*/

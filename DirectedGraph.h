@@ -28,10 +28,8 @@ public:
 	~DirectedGraph();
 
 	DirectedGraph(const DirectedGraph& other);
-
-	// Similar to copy constructor, but check for self
-	// assignment, if not, clear and copy all data.
-	//DirectedGraph<T> operator= (const DirectedGraph& other);
+	
+	DirectedGraph<T> operator= (const DirectedGraph& other);
 
 	bool isEmpty() const;
 
