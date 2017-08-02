@@ -312,13 +312,12 @@ public:
 		a.insertEdge("C","B");
 		a.insertEdge("B","D");
 		//Now remove vertex
-		//a.removeVertex("D");
-		/*
+		a.removeVertex("D");
         TS_ASSERT_EQUALS(a.numberVertices(), 3);
         TS_ASSERT_EQUALS(a.totalEdges(), 3);
         TS_ASSERT_EQUALS(a.vertexEdges("A"), 1);
 	    TS_ASSERT_EQUALS(a.vertexEdges("C"), 2);
-		TS_ASSERT_EQUALS(a.vertexEdges("B"), 0);*/
+		TS_ASSERT_EQUALS(a.vertexEdges("B"), 0);
 	}
 	
 	

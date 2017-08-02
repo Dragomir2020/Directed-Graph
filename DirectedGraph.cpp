@@ -259,26 +259,33 @@ void DirectedGraph<T>::removeVertex(T thing){
 	int index = vertexExists(thing);
 	if(index != -1){
 		//First delete vertex
-		/*
-    	(table[index].data)->clear();
-		delete table[index].data;*/
-		table[index].data = NULL;
+		//Need this because removed doesnt have linked bag
+		if(table[index].data != NULL){
+    	    (table[index].data)->clear();
+		    delete table[index].data;
+		    table[index].data = NULL;
+			//Since vertex is deleted subtract edges from total
+			total_edges = total_edges - table[index].number_edges;
+		}
 		table[index].state = EMPTY;
 		table[index].number_edges = 0;
 		number_vertices--;
+		
 		//next delete all vertcies pointing to vertex
 		for(int i=0; i < max_vertices; i++){
-			if((table[i].data)->contains(thing)){
-				(table[i].data)->remove(thing);
-				table[i].number_edges--;
-				if(table[i].number_edges == 0){
-					delete table[index].data;
-					table[index].data = NULL;
-					table[index].state = REMOVED;
-				}
-			}
+			if(table[i].data != NULL){
+			    if((table[i].data)->contains(thing)){
+				    (table[i].data)->remove(thing);
+				    table[i].number_edges--;
+					total_edges--;
+				    if(table[i].number_edges == 0){
+					    delete table[index].data;
+					    table[index].data = NULL;
+					    table[index].state = REMOVED;
+				    }
+			    }
+		    }
 		}
-			
 	} else{
 		//Vertex DNE
 	}
