@@ -12,8 +12,12 @@
 // Dillon Dragomir        08-28-2017     Initial Commit
 // Dillon Dragomir        09-01-2017     Implement more member functions and unit tests
 // Dillon Dragomir        09-01-2017     Add copy constructor and assignment operator
+// Dillon Dragomir        09-02-2017     Add more unit tests and make functions more robust
 
 ///////////////////////////////////////////////
+
+//TODO//
+//CHECK EFFICIENCY AND VERIFY SPEED IS REASONABLE 
 
 ////////////////
 //DEPENDANCIES//
