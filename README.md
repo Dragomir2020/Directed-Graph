@@ -23,7 +23,9 @@
 ## Check for Memory Leaks
 - valgrind ./testrunner
 ## Clean Directory of Compiled Files
-- make clean
+```
+make clean
+```
 - must do this to recompile code using make test
 
 # Using Directed-Graph
