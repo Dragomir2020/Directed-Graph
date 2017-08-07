@@ -339,8 +339,44 @@ public:
 		  DirectedGraph<string> b(a);
 	      TS_ASSERT_EQUALS(b.numberVertices(), 2);
 	      TS_ASSERT_EQUALS(b.totalEdges(), 0);
+	  }
+		  
+	void testCopy3() {
+	  DirectedGraph<string> a(2);
+	  a.insertVertex("D");
+	  a.insertVertex("E");
+	  a.clearGraph();
+	  DirectedGraph<string> b(a);
+      TS_ASSERT_EQUALS(b.numberVertices(), 0);
+      TS_ASSERT_EQUALS(b.totalEdges(), 0);
+	  TS_ASSERT_EQUALS(b.vertexExists("D"), -1);
+	  TS_ASSERT_EQUALS(b.vertexExists("E"), -1);
 	}
-	
+	void testCopy4() {
+		DirectedGraph<int> a(12);
+		a.insertVertex(0);
+		for(int i=0; i<10;i++){
+			a.insertVertex(i+1);
+			a.insertEdge(i,i+1);
+		}
+    TS_ASSERT_EQUALS(a.numberVertices(), 11);
+    TS_ASSERT_EQUALS(a.totalEdges(), 10);
+    TS_ASSERT_EQUALS(a.vertexExists(0), 0);
+    TS_ASSERT_EQUALS(a.vertexExists(20), -1);
+	DirectedGraph<int> b(a);
+    TS_ASSERT_EQUALS(b.numberVertices(), 11);
+    TS_ASSERT_EQUALS(b.totalEdges(), 10);
+    TS_ASSERT_EQUALS(b.vertexExists(0), 0);
+    TS_ASSERT_EQUALS(b.vertexExists(20), -1);
+    }
+	void testCopy5() {
+		DirectedGraph<string> a(2);
+		DirectedGraph<string> b(a);
+        TS_ASSERT_EQUALS(b.numberVertices(), 0);
+        TS_ASSERT_EQUALS(b.totalEdges(), 0);
+  	    TS_ASSERT_EQUALS(b.vertexExists("D"), -1);
+  	    TS_ASSERT_EQUALS(b.vertexExists("E"), -1);
+	}
 };
 
 class DirectedGraphRemoveEdge : public CxxTest::TestSuite {
@@ -474,6 +510,78 @@ public:
         TS_ASSERT_EQUALS(a.numberVertices(), 100);
         TS_ASSERT_EQUALS(a.totalEdges(),99);
 	}
+	void testAssignment3() {
+  	      DirectedGraph<string> a(2);
+  	      a.insertVertex("A");
+  	      a.insertVertex("B");
+	      a.insertEdge("A","B");
+		  a.insertEdge("B","A");
+		  DirectedGraph<string> b(2);
+		  b=a;
+		  TS_ASSERT_EQUALS(b.numberVertices(), 2);
+		  TS_ASSERT_EQUALS(b.totalEdges(), 2);
+		  TS_ASSERT_EQUALS(b.vertexEdges("A"), 1);
+		  TS_ASSERT_EQUALS(b.isFull(), 1);
+		  TS_ASSERT_EQUALS(b.completeGraph(), 1);
+	}
+	void testAssignment4() {
+  	      DirectedGraph<string> a(2);
+		  DirectedGraph<string> b(2);
+		  b=a;
+		  TS_ASSERT_EQUALS(b.numberVertices(), 0);
+		  TS_ASSERT_EQUALS(b.totalEdges(), 0);
+		  TS_ASSERT_EQUALS(b.maxVertices(), 2);
+	}
+	void testAssignment5() {
+		  DirectedGraph<string> a(2);
+		  a.insertVertex("D");
+		  a.insertVertex("E");
+		  DirectedGraph<string> b(2);
+		  b=a;
+	      TS_ASSERT_EQUALS(b.numberVertices(), 2);
+	      TS_ASSERT_EQUALS(b.totalEdges(), 0);
+	  }
+		  
+	void testAssignment6() {
+	  DirectedGraph<string> a(2);
+	  a.insertVertex("D");
+	  a.insertVertex("E");
+	  a.clearGraph();
+	  DirectedGraph<string> b(2);
+	  b=a;
+      TS_ASSERT_EQUALS(b.numberVertices(), 0);
+      TS_ASSERT_EQUALS(b.totalEdges(), 0);
+	  TS_ASSERT_EQUALS(b.vertexExists("D"), -1);
+	  TS_ASSERT_EQUALS(b.vertexExists("E"), -1);
+	}
+	void testAssignment7() {
+		DirectedGraph<int> a(12);
+		a.insertVertex(0);
+		for(int i=0; i<10;i++){
+			a.insertVertex(i+1);
+			a.insertEdge(i,i+1);
+		}
+    TS_ASSERT_EQUALS(a.numberVertices(), 11);
+    TS_ASSERT_EQUALS(a.totalEdges(), 10);
+    TS_ASSERT_EQUALS(a.vertexExists(0), 0);
+    TS_ASSERT_EQUALS(a.vertexExists(20), -1);
+	DirectedGraph<int> b(12);
+	b=a;
+    TS_ASSERT_EQUALS(b.numberVertices(), 11);
+    TS_ASSERT_EQUALS(b.totalEdges(), 10);
+    TS_ASSERT_EQUALS(b.vertexExists(0), 0);
+    TS_ASSERT_EQUALS(b.vertexExists(20), -1);
+    }
+	void testAssignment8() {
+		DirectedGraph<string> a(2);
+		DirectedGraph<string> b(2);
+		b=a;
+        TS_ASSERT_EQUALS(b.numberVertices(), 0);
+        TS_ASSERT_EQUALS(b.totalEdges(), 0);
+  	    TS_ASSERT_EQUALS(b.vertexExists("D"), -1);
+  	    TS_ASSERT_EQUALS(b.vertexExists("E"), -1);
+	}
+	
 	
 };
 

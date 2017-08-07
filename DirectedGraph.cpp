@@ -302,6 +302,8 @@ void DirectedGraph<T>::removeEdge(T vertOne, T vertTwo){
 }
 
 //Remove vertex
+//STILL NEEDS IMPLEMENTED
+//THIS WILL BREAK CODE WHEN DELETING VERTICIES BC OF BREAK STATEMENTS
 template<class T>
 void DirectedGraph<T>::removeVertex(T thing){
 	//Checks whether vertex exists then removes it
