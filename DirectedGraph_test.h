@@ -99,7 +99,6 @@ public:
 };
 
 
-
 class DirectedGraphInsertEdge : public CxxTest::TestSuite {
 public:
 	
@@ -486,7 +485,7 @@ class DirectedGraphAssignment: public CxxTest::TestSuite {
 public:
 	
 	void testAssignment0() {
-		DirectedGraph<string> a(3);
+		DirectedGraph<string> a(4);
 		DirectedGraph<string> b(4);
 		a = b;
 		TS_ASSERT_EQUALS(a.maxVertices(), 4);
@@ -581,9 +580,17 @@ public:
   	    TS_ASSERT_EQUALS(b.vertexExists("D"), -1);
   	    TS_ASSERT_EQUALS(b.vertexExists("E"), -1);
 	}
-	
+	void testAssignment9() {
+		DirectedGraph<string> a(4);
+		DirectedGraph<string> b(2);
+		a.insertVertex("A");
+		a.insertVertex("B");
+		a.insertVertex("C");
+		TS_ASSERT_THROWS_ANYTHING(b=a);
+	}
 	
 };
+
 
 
 #endif

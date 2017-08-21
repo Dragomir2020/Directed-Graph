@@ -12,6 +12,7 @@
 // Dillon Dragomir        08-28-2017     Initial Commit
 // Dillon Dragomir        09-01-2017     Implement more member functions and unit tests
 // Dillon Dragomir        09-01-2017     Add copy constructor and assignment operator
+// Dillon Dragomir        09-20-2017     Try to resolve memory leaks in assignment 
 
 ///////////////////////////////////////////////
 
@@ -98,15 +99,19 @@ DirectedGraph<T>::DirectedGraph(const DirectedGraph& other){
 //Assignment Operator
 template<class T>
 DirectedGraph<T> DirectedGraph<T>::operator= (const DirectedGraph& other){ 
-	table = new item_t<T>[other.max_vertices];
-	if(table == other.table){
+	//Number of vertices could be same but different
+	if(table == other.table  ){
 		return *this;
+	} else if(other.number_vertices > max_vertices){
+		//Will not fit in new graph
+		throw invalid_argument( "EXCEPTION: Will not fit in graph." );
 	} else {
        // Assignment Operator
+	   int max = max_vertices;
 	   clearGraph();
        total_edges = 0;//other.total_edges;//other.total_edges;
    	   number_vertices = 0;//other.number_vertices;//other.number_vertices;
-   	   max_vertices = other.max_vertices;
+   	   max_vertices = max;
 	   //Set copy over all elements
 	   for(int i = 0; i < max_vertices; i++){
 	       if((other.table[i]).state == EMPTY){
@@ -116,9 +121,7 @@ DirectedGraph<T> DirectedGraph<T>::operator= (const DirectedGraph& other){
 		   }else if((other.table[i]).state == REMOVED){
 			   number_vertices++;
 			   table[i].vertex = (other.table[i]).vertex;
-			   //Create new linked bag to copy to
-			   LinkedBag<T>* A = new LinkedBag<T>();
-			   (table[i].data) = A;
+			   table[i].data = NULL;
 			   (table[i].state) = REMOVED;
 			   table[i].number_edges = 0;
 		   }else if((other.table[i]).state == OCCUPIED){
@@ -160,18 +163,6 @@ unsigned int DirectedGraph<T>::vertexEdges(T vertex) const{
 	}else{
 		throw invalid_argument( "EXCEPTION: Vertex does not exist." );
 	}
-	
-	//This code doesnt leverage previously written functions
-	/*
-	for(int i=0;i<max_vertices;i++){
-		if(table[i].vertex == vertex && table[i].state != OCCUPIED){
-			return (table[i].data)->getCurrentSize();
-		}
-		if((i == 1 + max_vertices) && table[i].vertex != vertex){
-			throw invalid_argument( "EXCEPTION: Vertex does not exist." );
-		}
-	}
-	return 0;*/
 }
 
 // returns number of vertices
@@ -302,8 +293,6 @@ void DirectedGraph<T>::removeEdge(T vertOne, T vertTwo){
 }
 
 //Remove vertex
-//STILL NEEDS IMPLEMENTED
-//THIS WILL BREAK CODE WHEN DELETING VERTICIES BC OF BREAK STATEMENTS
 template<class T>
 void DirectedGraph<T>::removeVertex(T thing){
 	//Checks whether vertex exists then removes it
