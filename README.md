@@ -56,5 +56,4 @@ make clean
 - void clearGraph(); //Clears all vertices
 
 # TODO
-- Implement member functions in DirectedGraph.cpp
-- Write more tests in DirectedGraph_test.h
+- Write more unit tests in DirectedGraph_test.cpp
