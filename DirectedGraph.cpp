@@ -100,7 +100,7 @@ DirectedGraph<T>::DirectedGraph(const DirectedGraph& other){
 template<class T>
 DirectedGraph<T> DirectedGraph<T>::operator= (const DirectedGraph& other){ 
 	//Number of vertices could be same but different
-	if(table == other.table  ){
+	if(other.number_vertices == 0){
 		return *this;
 	} else if(other.number_vertices > max_vertices){
 		//Will not fit in new graph
